@@ -1,10 +1,9 @@
-from http.client import OK
-from urllib import response
 from flask import Flask, Response, request
 import joblib
 import numpy as np
 import requests
 import json
+import os
 
 app = Flask("API SMART IRRIGATION")
 
@@ -63,5 +62,9 @@ def carregarObjeto(body):
     umidadeIdeal = 50
 
     return np.array([umidadeSolo, umidadeAmbiente, temperaturaAmbiente,umidadeIdeal]).reshape(1,-1)
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 app.run()
