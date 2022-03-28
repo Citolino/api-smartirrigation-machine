@@ -21,6 +21,8 @@ def acaoAtuador():
     new_predict = carregarObjeto(body);
     predição = model.predict(new_predict)
 
+    device_id = body["data"][0]["id"];
+
     if predição == 1 :
         payloadRequest = {
                 "on": {
@@ -35,11 +37,11 @@ def acaoAtuador():
                     "type" : "command",
                     "value" : ""
                 }}
-    response = chamaBroker(payloadRequest); 
+    response = chamaBroker(payloadRequest,device_id); 
     return Response("{'a':'b'}", status=response.status_code, mimetype='application/json')
    
-def chamaBroker(payloadRequest):
-    url = "http://18.216.218.224:1026/v2/entities/Thing:smartirrigation005/attrs"
+def chamaBroker(payloadRequest,device_id):
+    url = "http://18.216.218.224:1026/v2/entities/"+device_id+"/attrs"
 
     payload = json.dumps(payloadRequest)
     headers = {
