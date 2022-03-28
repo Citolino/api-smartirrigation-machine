@@ -10,6 +10,11 @@ app = Flask("API SMART IRRIGATION")
 
 model = joblib.load('model_smart.pkl');
 
+
+@app.route("/api/teste",methods=["GET"])
+def teste():
+    return {'teste':'teste'}
+
 @app.route("/api/acaoAtuador",methods=["POST"])
 def acaoAtuador():
 
