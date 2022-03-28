@@ -1,1 +1,1 @@
-web: gunircorn routes:app
+web: python routes.py
