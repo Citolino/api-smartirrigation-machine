@@ -4,7 +4,7 @@ import numpy as np
 import requests
 import json
 import os
-
+from datetime import datetime
 app = Flask("API SMART IRRIGATION")
 
 model = joblib.load('model_smart.pkl');
@@ -61,9 +61,11 @@ def carregarObjeto(body):
 
     temperaturaAmbiente = float(body["data"][0]["temperature"]["value"]);
 
+    horaLeitura = datetime.now().toordinal();
+
     umidadeIdeal = 50
 
-    return np.array([umidadeSolo, umidadeAmbiente, temperaturaAmbiente,umidadeIdeal]).reshape(1,-1)
+    return np.array([horaLeitura,umidadeSolo, umidadeAmbiente, umidadeIdeal,temperaturaAmbiente]).reshape(1,-1)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
